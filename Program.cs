@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using supermercadosq.Entities;
 using supermercadosq.Model.Connection;
+using supermercadosq.Model.Request;
+using supermercadosq.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddNpgsql<DatabaseConnection>(builder.Configuration["Database:Npgsql"]);
@@ -16,23 +18,9 @@ app.MapGet("/user/single/{id}", ([FromRoute] int id, DatabaseConnection context)
   return Results.Ok(user);
 });
 
-app.MapPost("/user", (UserRequestDTO user, DatabaseConnection context) => {
-  var u = new User{
-    Name = user.Name, 
-    SocialName = user.SocialName, 
-    CpfCnpj = user.CpfCnpj, 
-    Email = user.Email, 
-    Password = user.Password, 
-    Level = user.Level, 
-    Active = user.Active, 
-    PhoneNumber = user.PhoneNumber
-  };
-  context.Users.Add(u);
-  context.SaveChanges();
-  return Results.StatusCode(201);
-});
+app.MapMethods(UserPost.Template, UserPost.Methods, UserPost.Handle);
 
-app.MapPut("/user/{id}", ([FromRoute]int id, UserRequestDTO userDTO, DatabaseConnection context) =>{
+app.MapPut("/user/{id}", ([FromRoute]int id, UserRequest userDTO, DatabaseConnection context) =>{
   var user = context.Users.Where(u => u.Id == id).First();
   if(user != null){
     user.Name = userDTO.Name != null ? userDTO.Name : user.Name;

@@ -1,6 +1,8 @@
 using supermercadosq.Entities.Enum;
 
-public record UserRequestDTO(
+namespace supermercadosq.Model.Request
+{
+    public record UserRequest(
     string Name, 
     string SocialName, 
     string CpfCnpj, 
@@ -9,4 +11,5 @@ public record UserRequestDTO(
     Level Level, 
     Boolean Active, 
     string PhoneNumber
-);
+    );
+}

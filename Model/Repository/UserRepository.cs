@@ -1,7 +1,7 @@
 using supermercadosq.Entities;
 
-namespace supermercadosq.Model.UserRepository{
-    public class CreateUserRepository{
+namespace supermercadosq.Model.Repository{
+    public class UserRepository{
         public List<User> User { get; set; }
 
         public void CreateUser(User user){
