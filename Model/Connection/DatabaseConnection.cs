@@ -7,10 +7,10 @@ namespace supermercadosq.Model.Connection{
         public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder){
-            builder.Entity<User>()
-            .Property( u => u.Name).HasMaxLength(100).IsRequired(true);
-            builder.Entity<User>()
-            .Property(u => u.SocialName).HasMaxLength(100).IsRequired(false);
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder){
+            builder.Properties<string>().HaveMaxLength(100);
         }
     }
 }
