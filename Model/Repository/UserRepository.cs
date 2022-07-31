@@ -1,6 +1,7 @@
-using supermercadosq.Entities;
+using supermercadosq.Domain;
 using supermercadosq.Model.Request;
 using supermercadosq.Model.Connection;
+using supermercadosq.Model.Response;
 
 namespace supermercadosq.Model.Repository{
     public class UserRepository
@@ -47,6 +48,41 @@ namespace supermercadosq.Model.Repository{
         context.SaveChanges();
 
         return user;
+        }
+
+        public List<UserResponse> GetAllUser(DatabaseConnection context)
+        {
+            List<User> users = context.Users.ToList();
+            List<UserResponse> responses = new List<UserResponse>();
+            foreach(User user in users)
+            {
+                var response = new UserResponse
+                (
+                    user.Name,
+                    user.SocialName,
+                    user.CpfCnpj,
+                    user.Email,
+                    user.PhoneNumber
+                );
+                responses.Add(response);
+            }
+            return responses;
+        }
+
+        public UserResponse GetUserSingle(int id, DatabaseConnection context)
+        {
+            var user = context.Users.Where(u => u.Id == id).First();
+            
+                var response = new UserResponse
+                (
+                    user.Name,
+                    user.SocialName,
+                    user.CpfCnpj,
+                    user.Email,
+                    user.PhoneNumber
+                );
+            
+            return response;
         }
     }
 }

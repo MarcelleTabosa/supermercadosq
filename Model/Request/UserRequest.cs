@@ -1,4 +1,4 @@
-using supermercadosq.Entities.Enum;
+using supermercadosq.Domain.Enum;
 
 namespace supermercadosq.Model.Request
 {

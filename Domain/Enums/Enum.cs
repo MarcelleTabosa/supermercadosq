@@ -1,4 +1,4 @@
-namespace supermercadosq.Entities.Enum{
+namespace supermercadosq.Domain.Enum{
     public enum Level{
         ADMINISTRATOR, SUPPLIER, CUSTOMER
     }    

@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using supermercadosq.Entities;
+using supermercadosq.Domain;
 
 namespace supermercadosq.Model.Connection{
     public class DatabaseConnection : DbContext{

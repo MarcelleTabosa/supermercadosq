@@ -1,6 +1,6 @@
-using supermercadosq.Entities.Enum;
+using supermercadosq.Domain.Enum;
 
-namespace supermercadosq.Entities{
+namespace supermercadosq.Domain{
     public class User{
         public int Id { get; set; }
         public string Name { get; set; }

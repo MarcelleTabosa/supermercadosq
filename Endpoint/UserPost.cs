@@ -1,6 +1,6 @@
 using supermercadosq.Model.Request;
 using supermercadosq.Model.Connection;
-using supermercadosq.Entities;
+using supermercadosq.Domain;
 using supermercadosq.Model.Repository;
 
 namespace supermercadosq.Endpoint
