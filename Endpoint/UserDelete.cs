@@ -1,20 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using supermercadosq.Model.Connection;
 using supermercadosq.Model.Repository;
-using supermercadosq.Model.Request;
 
 namespace supermercadosq.Endpoint
 {
-    public class UserPut
+    public class UserDelete
     {
         public static string Template => "/user/{id}";
-        public static string[] Methods => new string[] { HttpMethod.Put.ToString()};
+        public static string[] Methods => new string[] { HttpMethod.Delete.ToString()};
         public static Delegate Handle => Action;
 
-        public static IResult Action([FromRoute]int id, UserRequest userRequest, DatabaseConnection context)
+        public static IResult Action([FromRoute]int id, DatabaseConnection context)
         {
             var userRepository = new UserRepository();
-            var user = userRepository.UpdateUser(id, userRequest, context);
+            var user = userRepository.DeleteUser(id,  context);
 
             return Results.StatusCode(200);
         }

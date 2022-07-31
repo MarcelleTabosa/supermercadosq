@@ -38,5 +38,15 @@ namespace supermercadosq.Model.Repository{
 
         return user;
         }
+
+        public User DeleteUser(int id, DatabaseConnection context)
+        {
+            var user = context.Users.Where(u => u.Id == id).First();
+
+        context.Users.Remove(user);
+        context.SaveChanges();
+
+        return user;
+        }
     }
 }
