@@ -19,19 +19,7 @@ app.MapGet("/user/single/{id}", ([FromRoute] int id, DatabaseConnection context)
 });
 
 app.MapMethods(UserPost.Template, UserPost.Methods, UserPost.Handle);
-
-app.MapPut("/user/{id}", ([FromRoute]int id, UserRequest userRequest, DatabaseConnection context) =>{
-  var user = context.Users.Where(u => u.Id == id).First();
-  if(user != null){
-    user.Name = userRequest.Name != null ? userRequest.Name : user.Name;
-    user.SocialName = userRequest.SocialName != null ? userRequest.SocialName : user.SocialName;
-    user.Email = userRequest.Email != null ? userRequest.Email : user.Email; 
-    user.Password = userRequest.Password != null ? userRequest.Password : user.Password;
-    user.PhoneNumber = userRequest.PhoneNumber != null ? userRequest.PhoneNumber : user.PhoneNumber;
-  }
-  context.SaveChanges();
-  return Results.StatusCode(204);
-});
+app.MapMethods(UserPut.Template, UserPut.Methods, UserPut.Handle);
 
 app.MapDelete("/user/{id}", ([FromRoute] int id, DatabaseConnection context) => {
   var user = context.Users.Where(u => u.Id == id).First();

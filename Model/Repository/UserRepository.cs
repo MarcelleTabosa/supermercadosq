@@ -23,5 +23,20 @@ namespace supermercadosq.Model.Repository{
 
         return user;
         }
+        
+        public User UpdateUser(int id, UserRequest userRequest, DatabaseConnection context)
+        {
+            var user = context.Users.Where(u => u.Id == id).First();
+
+            user.Name = userRequest.Name != null ? userRequest.Name : user.Name;
+            user.SocialName = userRequest.SocialName != null ? userRequest.SocialName : user.SocialName;
+            user.Email = userRequest.Email != null ? userRequest.Email : user.Email; 
+            user.Password = userRequest.Password != null ? userRequest.Password : user.Password;
+            user.PhoneNumber = userRequest.PhoneNumber != null ? userRequest.PhoneNumber : user.PhoneNumber;
+
+        context.SaveChanges();
+
+        return user;
+        }
     }
 }
