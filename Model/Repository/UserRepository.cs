@@ -17,7 +17,10 @@ namespace supermercadosq.Model.Repository{
             Password = userRequest.Password,
             Level = userRequest.Level,
             Active = userRequest.Active,
-            PhoneNumber = userRequest.PhoneNumber
+            PhoneNumber = userRequest.PhoneNumber,
+            CreationDate = DateTime.UtcNow,
+            UpdateDate = DateTime.UtcNow,
+            DeletionDate = null
         };
         context.Users.Add(user);
         context.SaveChanges();
@@ -34,6 +37,7 @@ namespace supermercadosq.Model.Repository{
             user.Email = userRequest.Email != null ? userRequest.Email : user.Email; 
             user.Password = userRequest.Password != null ? userRequest.Password : user.Password;
             user.PhoneNumber = userRequest.PhoneNumber != null ? userRequest.PhoneNumber : user.PhoneNumber;
+            user.UpdateDate = DateTime.UtcNow;
 
         context.SaveChanges();
 
