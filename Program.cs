@@ -11,5 +11,11 @@ app.MapMethods(UserPost.Template, UserPost.Methods, UserPost.Handle);
 app.MapMethods(UserPut.Template, UserPut.Methods, UserPut.Handle);
 app.MapMethods(UserDelete.Template, UserDelete.Methods, UserDelete.Handle);
 
+app.MapMethods(AddressGetSingle.Template, AddressGetSingle.Methods, AddressGetSingle.Handle);
+app.MapMethods(AddressGet.Template, AddressGet.Methods, AddressGet.Handle);
+app.MapMethods(AddressPost.Template, AddressPost.Methods, AddressPost.Handle);
+app.MapMethods(AddressPut.Template, AddressPut.Methods, AddressPut.Handle);
+app.MapMethods(AddressDelete.Template, AddressDelete.Methods, AddressDelete.Handle);
+
 app.Run();
 
