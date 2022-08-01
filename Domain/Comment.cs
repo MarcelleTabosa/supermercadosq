@@ -5,6 +5,6 @@ namespace supermercadosq.Domain{
         public string Message { get; set; }
         public State? Status { get; set; }
         public User User { get; set; }
-        public Product Product { get; set; }
+        public int Product { get; set; }
     }
 }
