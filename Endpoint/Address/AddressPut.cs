@@ -17,7 +17,7 @@ namespace supermercadosq.Endpoint
             var addressRepository = new AddressRepository();
             var address = addressRepository.UpdateAddress(id, addressRequest, context);
 
-            return Results.StatusCode(200);
+            return Results.StatusCode(204);
         }
     }
 }
