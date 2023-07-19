@@ -1,4 +1,4 @@
-using supermercadosq.Domain;
+/*using supermercadosq.Domain;
 using supermercadosq.Model.Request;
 using supermercadosq.Model.Connection;
 using supermercadosq.Model.Response;
@@ -77,4 +77,4 @@ namespace supermercadosq.Model.Repository{
             return response;
         }
     }
-}
+}*/
