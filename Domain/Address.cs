@@ -7,6 +7,7 @@ namespace supermercadosq.Domain{
         public string District { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public int User { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }

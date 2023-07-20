@@ -6,6 +6,7 @@ namespace supermercadosq.Domain{
         public string Ingredient { get; set; }
         public string? Image { get; set; }
         public State? Status { get; set; }
-        public int User { get; set; }
+        public int UserId { get; set; }
+        public User User { get; set; }
     }
 }
