@@ -4,44 +4,43 @@ using supermercadosq.Domain;
 
 namespace supermercadosq.Data.Repository
 {
-    public class AddressRepository : IRepository<Address>
+    public class ProductRepository : IRepository<Product>
     {
         private readonly DatabaseConnection _connection;
 
-        public AddressRepository(DatabaseConnection connection)
+        public ProductRepository(DatabaseConnection connection)
         {
             _connection = connection;
         }
 
-        public async Task<List<Address>> GetAll()
+        public async Task<List<Product>> GetAll()
         {
-            return await _connection.Addresses.ToListAsync();
+            return await _connection.Products.ToListAsync();
         }
 
-        public async Task<Address> Get(int id)
+        public async Task<Product> Get(int id)
         {
-            return await _connection.Addresses.FirstOrDefaultAsync(a => a.Id == id);
+            return await _connection.Products.FirstOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<Address> Post(Address entity)
+        public async Task<Product> Post(Product entity)
         {
-            _connection.Addresses.Add(entity);
+            _connection.Products.Add(entity);
             _connection.SaveChanges();
             return entity;
         }
 
-        public async Task<Address> Put(Address entity, int id)
+        public async Task<Product> Put(Product entity, int id)
         {
             var updateEntity = await Get(id);
 
             if (updateEntity == null)
-                throw new Exception($"Address ID: {id} not found.");
+                throw new Exception($"Product ID: {id} not found.");
 
-            updateEntity.Road = entity.Road;
-            updateEntity.Number = entity.Number;
-            updateEntity.District = entity.District;
-            updateEntity.City = entity.City;
-            updateEntity.State = entity.State;
+            updateEntity.Name = entity.Name;
+            updateEntity.Ingredient = entity.Ingredient;
+            updateEntity.Image = entity.Image;
+            updateEntity.Status = entity.Status;
             updateEntity.UpdateDate = DateTime.Now;
 
             _connection.Update(updateEntity);
@@ -54,7 +53,7 @@ namespace supermercadosq.Data.Repository
             var deleteEntity = await Get(id);
 
             if (deleteEntity == null)
-                throw new Exception($"Address ID: {id} not found.");
+                throw new Exception($"Product ID: {id} not found.");
 
             _connection.Remove(deleteEntity);
             _connection.SaveChanges();

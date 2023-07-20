@@ -4,44 +4,41 @@ using supermercadosq.Domain;
 
 namespace supermercadosq.Data.Repository
 {
-    public class AddressRepository : IRepository<Address>
+    public class CommentRepository : IRepository<Comment>
     {
         private readonly DatabaseConnection _connection;
 
-        public AddressRepository(DatabaseConnection connection)
+        public CommentRepository(DatabaseConnection connection)
         {
             _connection = connection;
         }
 
-        public async Task<List<Address>> GetAll()
+        public async Task<List<Comment>> GetAll()
         {
-            return await _connection.Addresses.ToListAsync();
+            return await _connection.Comments.ToListAsync();
         }
 
-        public async Task<Address> Get(int id)
+        public async Task<Comment> Get(int id)
         {
-            return await _connection.Addresses.FirstOrDefaultAsync(a => a.Id == id);
+            return await _connection.Comments.FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<Address> Post(Address entity)
+        public async Task<Comment> Post(Comment entity)
         {
-            _connection.Addresses.Add(entity);
+            _connection.Comments.Add(entity);
             _connection.SaveChanges();
             return entity;
         }
 
-        public async Task<Address> Put(Address entity, int id)
+        public async Task<Comment> Put(Comment entity, int id)
         {
             var updateEntity = await Get(id);
 
             if (updateEntity == null)
-                throw new Exception($"Address ID: {id} not found.");
+                throw new Exception($"Comment ID: {id} not found.");
 
-            updateEntity.Road = entity.Road;
-            updateEntity.Number = entity.Number;
-            updateEntity.District = entity.District;
-            updateEntity.City = entity.City;
-            updateEntity.State = entity.State;
+            updateEntity.Message = entity.Message;
+            updateEntity.Status = entity.Status;
             updateEntity.UpdateDate = DateTime.Now;
 
             _connection.Update(updateEntity);
@@ -54,7 +51,7 @@ namespace supermercadosq.Data.Repository
             var deleteEntity = await Get(id);
 
             if (deleteEntity == null)
-                throw new Exception($"Address ID: {id} not found.");
+                throw new Exception($"Comment ID: {id} not found.");
 
             _connection.Remove(deleteEntity);
             _connection.SaveChanges();
