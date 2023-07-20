@@ -23,7 +23,7 @@ namespace supermercadosq.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Address>> GetAll(int id)
+        public async Task<ActionResult<Address>> Get(int id)
         {
             var address = await _repository.Get(id);
             return Ok(address);

@@ -23,7 +23,7 @@ namespace supermercadosq.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> GetAll(int id)
+        public async Task<ActionResult<Comment>> Get(int id)
         {
             var comment = await _repository.Get(id);
             return Ok(comment);
