@@ -9,7 +9,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
 builder.Services.AddNpgsql<DatabaseConnection>(builder.Configuration["Database:Npgsql"]);
 builder.Services.AddScoped<IRepository<Address>, AddressRepository>();
 builder.Services.AddScoped<IRepository<User>, UserRepository>();
