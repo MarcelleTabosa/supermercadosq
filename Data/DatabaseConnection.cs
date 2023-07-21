@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Flunt.Notifications;
+using Microsoft.EntityFrameworkCore;
 using supermercadosq.Domain;
 
 namespace supermercadosq.Data
@@ -11,5 +12,10 @@ namespace supermercadosq.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Address> Addresses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Ignore<Notification>();
+        }
     }
 }
