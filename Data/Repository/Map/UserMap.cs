@@ -16,6 +16,8 @@ namespace supermercadosq.Data.Repository.Map
             builder.Property(x => x.Level).IsRequired();
             builder.Property(x => x.Active).IsRequired();
             builder.Property(x => x.PhoneNumber).HasMaxLength(11);
+            builder.Property(x => x.AddressId).IsRequired();
+            builder.HasOne(x => x.Address);
         }
     }
 }

@@ -13,8 +13,6 @@ namespace supermercadosq.Data.Repository.Map
             builder.Property(x => x.District).IsRequired().HasMaxLength(150);
             builder.Property(x => x.City).IsRequired().HasMaxLength(150);
             builder.Property(x => x.State).IsRequired().HasMaxLength(150);
-            builder.Property(x => x.UserId).IsRequired();
-            builder.HasOne(x => x.User);
         }
     }
 }
