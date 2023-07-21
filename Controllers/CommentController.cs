@@ -32,6 +32,9 @@ namespace supermercadosq.Controllers
         [HttpPost]
         public async Task<ActionResult<Comment>> Post([FromBody] Comment comment)
         {
+            if(!comment.IsValid)
+                return BadRequest(comment);
+
             var createComment = await _repository.Post(comment);
             return Ok(createComment);
         }

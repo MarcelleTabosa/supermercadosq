@@ -32,6 +32,9 @@ namespace supermercadosq.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> Post([FromBody] Product product)
         {
+            if(!product.IsValid)
+                return BadRequest(product);
+
             var createProduct = await _repository.Post(product);
             return Ok(createProduct);
         }

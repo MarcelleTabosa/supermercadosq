@@ -32,6 +32,9 @@ namespace supermercadosq.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromBody] User user)
         {
+            if(!user.IsValid)
+                return BadRequest(user);
+
             var createUser = await _repository.Post(user);
             return Ok(createUser);
         }

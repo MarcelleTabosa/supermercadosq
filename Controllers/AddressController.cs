@@ -32,6 +32,9 @@ namespace supermercadosq.Controllers
         [HttpPost]
         public async Task<ActionResult<Address>> Post([FromBody] Address address)
         {
+            if(!address.IsValid)
+                return BadRequest(address);
+
             var createAddress = await _repository.Post(address);
             return Ok(createAddress);
         }
