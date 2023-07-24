@@ -32,6 +32,7 @@ namespace supermercadosq.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> Post([FromBody] User user)
         {
+            user.CreationDate = DateTime.UtcNow;
             if(!user.IsValid)
                 return BadRequest(user);
 

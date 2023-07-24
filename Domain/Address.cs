@@ -10,14 +10,22 @@ namespace supermercadosq.Domain
         public string City { get; set; }
         public string State { get; set; }
 
-        public Address(int id, string road, string number, string district, string city, string state)
+        public Address
+        (
+            int id, 
+            string road, 
+            string number, 
+            string district, 
+            string city, 
+            string state
+        )
         {
             var contract = new Contract<Address>()
-                .IsNotNull(road, "Road")
-                .IsNotNull(number, "Number")
-                .IsNotNull(district, "District")
-                .IsNotNull(city, "City")
-                .IsNotNull(state, "State");
+                .IsNotNullOrEmpty(road, "Road")
+                .IsNotNullOrEmpty(number, "Number")
+                .IsNotNullOrEmpty(district, "District")
+                .IsNotNullOrEmpty(city, "City")
+                .IsNotNullOrEmpty(state, "State");
 
             AddNotifications(contract);
 
@@ -27,7 +35,6 @@ namespace supermercadosq.Domain
             District = district;
             City = city;
             State = state;
-            CreationDate = DateTime.UtcNow;
         }
     }
 }

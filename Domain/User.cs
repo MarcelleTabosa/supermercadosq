@@ -1,7 +1,8 @@
 using Flunt.Validations;
 using supermercadosq.Domain.Enum;
 
-namespace supermercadosq.Domain{
+namespace supermercadosq.Domain
+{
     public class User : Entity
     {
         public string Name { get; set; }
@@ -12,10 +13,24 @@ namespace supermercadosq.Domain{
         public Level Level { get; set; }
         public Boolean Active { get; set; }
         public string? PhoneNumber { get; set; }
-        public int AddressId { get; set; }
-        public Address? Address { get; set; }
+        public List<Address> Addresses { get; set; }
 
-        public User (int id, string name, string? socialName, string cpfCnpj, string email, string password, Level level, bool active, string? phoneNumber)
+        public User() { }
+
+        public User
+        (
+            int id,
+            string name,
+            string? socialName,
+            string cpfCnpj,
+            string email,
+            string password,
+            Level level,
+            bool active,
+            string? phoneNumber,
+            List<Address> addresses,
+            DateTime creationDate
+        )
         {
             var contracts = new Contract<User>()
                 .IsNotNullOrEmpty(name, "Name")
@@ -24,7 +39,9 @@ namespace supermercadosq.Domain{
                 .IsEmail(email, "Email")
                 .IsNotNullOrEmpty(password, "Password")
                 .IsNotNull(level, "Level")
-                .IsNotNull(active, "Active");
+                .IsNotNull(active, "Active")
+                .IsNotNull(creationDate, "CreationDate")
+                .IsNotNull(addresses, "Addresses");
 
             AddNotifications(contracts);
 
@@ -37,7 +54,8 @@ namespace supermercadosq.Domain{
             Level = level;
             Active = active;
             PhoneNumber = phoneNumber;
-            CreationDate = DateTime.UtcNow;
+            Addresses = addresses;
+            CreationDate = creationDate;
         }
     }
 }

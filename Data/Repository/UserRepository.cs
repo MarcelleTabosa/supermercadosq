@@ -21,6 +21,7 @@ namespace supermercadosq.Data.Repository
         public async Task<User> Get(int id)
         {
             return await _connection.Users.FirstOrDefaultAsync(u => u.Id == id);
+                
         }
 
         public async Task<User> Post(User entity)

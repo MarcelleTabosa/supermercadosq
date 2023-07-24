@@ -6,35 +6,58 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace supermercadosq.Migrations
 {
-    public partial class IncludingTables : Migration
+    public partial class InitialDatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Adresses",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Road = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Number = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    District = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    State = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    SocialName = table.Column<string>(type: "text", nullable: true),
+                    CpfCnpj = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    Level = table.Column<int>(type: "integer", nullable: false),
+                    Active = table.Column<bool>(type: "boolean", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: true),
+                    AddressId = table.Column<int>(type: "integer", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Adresses", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Road = table.Column<string>(type: "text", nullable: false),
+                    Number = table.Column<string>(type: "text", nullable: false),
+                    District = table.Column<string>(type: "text", nullable: false),
+                    City = table.Column<string>(type: "text", nullable: false),
+                    State = table.Column<string>(type: "text", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true),
+                    CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Adresses_Users_UserId",
+                        name: "FK_Addresses_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -43,13 +66,13 @@ namespace supermercadosq.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Ingredient = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Image = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Ingredient = table.Column<string>(type: "text", nullable: false),
+                    Image = table.Column<string>(type: "text", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -69,12 +92,12 @@ namespace supermercadosq.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Message = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Message = table.Column<string>(type: "text", nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: true),
                     UserId = table.Column<int>(type: "integer", nullable: false),
                     ProductId = table.Column<int>(type: "integer", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UpdateDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletionDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -95,8 +118,8 @@ namespace supermercadosq.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Adresses_UserId",
-                table: "Adresses",
+                name: "IX_Addresses_UserId",
+                table: "Addresses",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -118,13 +141,16 @@ namespace supermercadosq.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Adresses");
+                name: "Addresses");
 
             migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

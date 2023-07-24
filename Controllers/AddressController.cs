@@ -10,9 +10,11 @@ namespace supermercadosq.Controllers
     public class AddressController : ControllerBase
     {
         private readonly IRepository<Address> _repository;
-        public AddressController(IRepository<Address> repository)
+        private readonly IRepository<User> _UserRepository;
+        public AddressController(IRepository<Address> repository, IRepository<User> userRepository)
         {
             _repository = repository;
+            _UserRepository = userRepository;
         }
 
         [HttpGet]
@@ -32,6 +34,7 @@ namespace supermercadosq.Controllers
         [HttpPost]
         public async Task<ActionResult<Address>> Post([FromBody] Address address)
         {
+            address.CreationDate = DateTime.UtcNow;
             if(!address.IsValid)
                 return BadRequest(address);
 
